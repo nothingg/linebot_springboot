@@ -12,6 +12,7 @@ import com.linecorp.bot.model.message.flex.component.Image.ImageSize;
 import com.linecorp.bot.model.message.flex.container.Bubble;
 import com.linecorp.bot.model.message.flex.unit.FlexAlign;
 import com.linecorp.bot.model.message.flex.unit.FlexFontSize;
+import com.linecorp.bot.model.message.flex.unit.FlexGravity;
 import com.linecorp.bot.model.message.flex.unit.FlexLayout;
 import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
 
@@ -25,7 +26,8 @@ public class ReceiptFlexMessageSupplier implements Supplier<FlexMessage> {
         final Separator separator = Separator.builder().margin(FlexMarginSize.XXL).build();
         final Box headerBlock = createBodyHeaderBox();
         final Box itemBlock = createBodyItemBlock();
-        final Box footerBlock = createBodyfooterBlock();
+        final Box summaryBlock = createBodySummaryBlock();
+        final Box footBlock = createBoxFooterBlock();
 
         final Box bodyBlock = Box.builder()
                 .layout(FlexLayout.VERTICAL)
@@ -34,7 +36,9 @@ public class ReceiptFlexMessageSupplier implements Supplier<FlexMessage> {
                         separator,
                         itemBlock,
                         separator,
-                        footerBlock))
+                        summaryBlock,
+                        separator,
+                        footBlock))
                 .build();
 
         final Bubble bubble = Bubble.builder()
@@ -45,36 +49,7 @@ public class ReceiptFlexMessageSupplier implements Supplier<FlexMessage> {
     }
 
    
-	private Box createBodyItemBlock() {
-    	final Box item1 = createItem("Widthdraw","1,000.00");
-    	
-		return Box.builder()
-				.layout(FlexLayout.VERTICAL)
-				.margin(FlexMarginSize.XXL)
-				.spacing(FlexMarginSize.SM)
-				.contents(asList(item1))
-				.build();
-	}
-    
-    private Box createItem(String name, String price) {
-    	
-        return Box.builder()
-                .layout(FlexLayout.HORIZONTAL)
-                .contents(asList(
-                        Text.builder()
-                                .text(name)
-                                .size(FlexFontSize.SM)
-                                .color("#555555")
-                                .flex(0)
-                                .build(),
-                        Text.builder()
-                                .text(price)
-                                .size(FlexFontSize.SM)
-                                .color("#111111")
-                                .align(FlexAlign.END)
-                                .build()
-                )).build();
-    }
+	
 
 	private Box createBodyHeaderBox() {
 		
@@ -105,50 +80,71 @@ public class ReceiptFlexMessageSupplier implements Supplier<FlexMessage> {
                 .build();
     }
 	
-	 private Box createBodyfooterBlock() {
-		 final Image bodyFooterImage = Image.builder()
-		    		.url("https://www.ghbank.co.th/assets/img/logo-ghb.png")
-					.align(FlexAlign.START)
-					.size(ImageSize.XXS)
-					.margin(FlexMarginSize.MD)
-					.build();
+	private Box createBodyItemBlock() {
+    	final Box item1 = createItem("Widthdraw","1,000.00");
+    	
+		return Box.builder()
+				.layout(FlexLayout.VERTICAL)
+				.margin(FlexMarginSize.XXL)
+				.spacing(FlexMarginSize.SM)
+				.contents(asList(item1))
+				.build();
+	}
+    
+    private Box createItem(String name, String price) {
+    	
+        return Box.builder()
+                .layout(FlexLayout.HORIZONTAL)
+                .contents(asList(
+                        Text.builder()
+                                .text(name)
+                                .size(FlexFontSize.SM)
+                                .color("#555555")
+                                .flex(0)
+                                .build(),
+                        Text.builder()
+                                .text(price)
+                                .size(FlexFontSize.SM)
+                                .color("#111111")
+                                .align(FlexAlign.END)
+                                .build()
+                )).build();
+    }
+	
+	 private Box createBodySummaryBlock() {
+
 		 final Text bodyFooterText = Text.builder()
 	    		.text("Balance")
 	    		.weight(TextWeight.BOLD)
 	    		.size(FlexFontSize.SM)
 	    		.align(FlexAlign.START)
-	    		.margin(FlexMarginSize.MD)
 	    		.build();
 		 final Text bodyFooterAmt = Text.builder()
 				 .text("1,000.00")
 				 .align(FlexAlign.END)
 				 .size(FlexFontSize.SM)
-				 .margin(FlexMarginSize.MD)
 				 .build();
+		 
 		 
 		 return Box.builder().layout(FlexLayout.HORIZONTAL)
 				 .contents(asList(
-						 bodyFooterImage,
 						 bodyFooterText,
 						 bodyFooterAmt))
+				 .margin(FlexMarginSize.XXL)
+				 .spacing(FlexMarginSize.SM)
 				 .build();
-/*	    
-			return Box.builder()
-					.layout(FlexLayout.HORIZONTAL)
-					.margin(FlexMarginSize.MD)
-					.contents(asList(
-						Image.builder()
-							.url("https://www.ghbank.co.th/assets/img/logo-ghb.png")
-							.align(FlexAlign.START)
-							.size(ImageSize.XXS)
-							.build(),
-						Text.builder()
-							.text("GHB")
-							.align(FlexAlign.END)
-							.color("#aaaaaa")
-							.build()
-					))
-					.build();
-*/
 		}
+	 
+	 private Box createBoxFooterBlock() {
+		 final Image bodyFooterImage = Image.builder()
+				 							.url("https://www.ghbank.co.th/assets/img/logo-ghb.png")
+				 							.align(FlexAlign.CENTER)
+				 							.size(ImageSize.XXS)
+				 							.build();
+		 
+		 return Box.builder()
+				 .layout(FlexLayout.VERTICAL)
+				 .contents(asList(bodyFooterImage))
+				 .build();
+	 }
 }
