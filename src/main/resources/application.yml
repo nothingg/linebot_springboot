@@ -1,0 +1,4 @@
+line.bot:
+  channel-token: 1/B0JKb0SkxFfgDOBy1T+DeXfWwypgAc6SI00dT92fb2VGTGw92YrtpkP6O1P5uuz1F6K/2sECRTxbbKjDyJm/9pVDzc79VAJAfg2esirZ7RhlCzEQALWMqBuYj16UHxAtpL3E7+kwISr4laiwS8rwdB04t89/1O/w1cDnyilFU=
+  channel-secret: 6cd015f9cee5ae5162c9b6aadefb5634
+  handler.path: /webhook
